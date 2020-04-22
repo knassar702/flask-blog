@@ -4,6 +4,7 @@ from .libs.mysql import SQL
 from .libs.time import date
 from .libs.config import *
 from blog import app,sql,csrf
+from PIL import Image
 from flask_login import login_user, current_user, logout_user,login_required
 from .forms import RegistrationForm,LoginForm
 from werkzeug.security import generate_password_hash,check_password_hash
@@ -65,6 +66,9 @@ def upload_image():
 		filename = secrets.token_hex(8) + '_' + filename
 		if allowed_file(filename,allow={'jpg','png','jpeg','gif'}):
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			i = Image.open(f'blog/static/image/{filename}')
+			i.thumbnail((125,125))
+			i.save(f'blog/static/image/{filename}')
 			c , cmd = sql.mysql()
 			cmd.execute('UPDATE users SET image = (%s) WHERE username = (%s)',(filename,session.get('username'),))
 			c.commit()

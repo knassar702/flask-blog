@@ -6,7 +6,7 @@ Source code of my Blog
 ## Terminal :
 ```bash
 $ sudo apt install python python-pip libmysqlclient-dev
-$ sudo pip install steptools flask flask-mysqldb flask-script flask-login flask-wtf
+$ sudo pip install steptools flask flask-mysqldb flask-script flask-login flask-wtf email_validator
 ```
 
 ### MySQL :
